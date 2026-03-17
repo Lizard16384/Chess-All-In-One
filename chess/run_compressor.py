@@ -7,10 +7,9 @@ def main():
     in_command = "chess/chess.mcfunction"
     in_positions = "chess/chess_positions.txt"
     theme_data = themes.get_theme_commands()
-    command = parse.parse_command(finish.read_file_lines(in_command),finish.read_file_lines(in_positions),theme_data)
-
-    raw_data = {"storage":"c","scoreboard":"c"}
-    final_command = compress.compile_command(command, raw_data)
+    command_lines = finish.read_file_lines(in_command)
+    positions_lines = finish.read_file_lines(in_positions)
+    final_command = parse.parse_command(command_lines, [parse.get_parse_positions(positions_lines), parse.get_parse_raw_data(theme_data)])
     finish.finish(final_command, ("clipboard","write"), "result.txt")
 
 if __name__ == "__main__":
