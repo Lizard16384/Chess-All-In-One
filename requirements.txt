@@ -1,0 +1,2 @@
+r Payload/requirements.txt
+pyperclip==1.11.0
