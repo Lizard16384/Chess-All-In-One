@@ -1,5 +1,4 @@
 from payload.parser import parse
-from payload.compressor import compress
 from payload import finish
 
 import themes
@@ -7,15 +6,12 @@ import themes
 def main():
     in_command = "chess/chess.mcfunction"
     in_positions = "chess/chess_positions.txt"
+    theme_data = themes.get_theme_commands()
+    command = parse.parse_command(finish.read_file_lines(in_command),finish.read_file_lines(in_positions),theme_data)
 
-    result = "result.txt"
+    raw_data = {"storage":"c","scoreboard":"c"}
+    final_command = compress.compile_command(command, raw_data)
+    finish.finish(final_command, ("clipboard","write"), "result.txt")
 
-    raw_command = parse.parse_command(finish.read_file_lines(in_command),finish.read_file_lines(in_positions),themes.get_theme_commands())
-
-    snbt = compress.compress_data(raw_command)
-    raw_data = {"snbt":snbt,"storage":"c","scoreboard":"c"}
-
-    final_command = compress.compile_command(raw_data)
-    finish.finish(final_command, ("clipboard","write"), result)
-
-main()
+if __name__ == "__main__":
+    main()
