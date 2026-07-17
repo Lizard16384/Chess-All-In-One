@@ -1,2 +1,3 @@
-r Payload/requirements.txt
+-r Payload/requirements.txt
+-e ./Payload
 pyperclip==1.11.0

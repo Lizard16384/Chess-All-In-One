@@ -15,6 +15,8 @@ compress = importlib.util.module_from_spec(spec)
 sys.modules["compressor"] = compress
 spec.loader.exec_module(compress)
 """
+from payload.parser import parse
+from payload.compressor import compress
 
 import themes
 
@@ -40,7 +42,7 @@ def read_file_lines(file_name):
     file.close()
     return file_lines
 
-def finish(final, output, result = "result.txt"):
+def finish(final, output, file_name = "result.txt"):
     if len(final) > 32500:
         raise CommandLengthError(len(final), f"Payload character length exceeds 32500! Command cannot be pasted in one command!")
     elif False:  # TODO: check byte length not to exceed 65536 and check behavior - maybe command can still be run, packet just can't be sent back to client.
@@ -51,21 +53,29 @@ def finish(final, output, result = "result.txt"):
     if "clipboard" in output:
         pyperclip.copy(final)
     if "write" in output:
-        result = open(result, "w", -1, "utf-8")
+        result = open(file_name, "w", -1, "utf-8")
         result.write(final)
         result.close()
     if "clipboard" not in output and "write" not in output:
         raise Exception('Please specify output method. Options are "clipboard" and/or "write"')
 
-    print(f"Result {f'wrote to file {result}' if "write" in output else ""}{" and " if "clipboard" in output and "write" in output else ""}{"copied to clipboard" if "clipboard" in output else ""}.")
+    print(f"Result {f'wrote to file {file_name}' if "write" in output else ""}{" and " if "clipboard" in output and "write" in output else ""}{"copied to clipboard" if "clipboard" in output else ""}.")
 
 def main():
-    raw_command = parse.parse_command(read_file_lines("chess.mcfunction"),read_file_lines("chess_positions.txt"),themes.get_theme_commands())
+    compressor_command = "Payload/src/payload/compressor/compressor.mcfunction"
+    compressor_positions = "Payload/src/payload/compressor/positions.txt"
+
+    in_command = "chess/chess.mcfunction"
+    in_positions = "chess/chess_positions.txt"
+
+    result = "result.txt"
+
+    raw_command = parse.parse_command(read_file_lines(in_command),read_file_lines(in_positions),themes.get_theme_commands())
 
     snbt = compress.compress_data(raw_command)
     raw_data = {"snbt":snbt,"storage":"c","scoreboard":"c"}
 
-    final_command = parse.parse_command(read_file_lines("../compressor.mcfunction"),read_file_lines("../positions.txt"),raw_data)
-    finish(final_command, ("clipboard","write"), "result.txt")
+    final_command = parse.parse_command(read_file_lines(compressor_command),read_file_lines(compressor_positions),raw_data)
+    finish(final_command, ("clipboard","write"), result)
 
 main()
