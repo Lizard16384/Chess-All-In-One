@@ -12,6 +12,7 @@ def main():
     command_lines = finish.read_file_lines(in_command)
     positions_lines = finish.read_file_lines(in_positions)
     final_command = parse.parse_command(command_lines, [parse.get_parse_positions(positions_lines), parse.get_parse_raw_data(theme_data)])
+    print("Parsing and compressing provided command...")
     finish.finish(final_command, ("clipboard","write"), "chess/chess_payload.txt")
 
 if __name__ == "__main__":
