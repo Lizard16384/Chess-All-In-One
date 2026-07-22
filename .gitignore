@@ -1,3 +1,6 @@
+# Chess build
+*chess_payload.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
