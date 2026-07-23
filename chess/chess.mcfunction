@@ -36,7 +36,7 @@ id:marker,Tags:[chess.entity,chess.create,chess.create.-,chess.create.+-],Rotati
 id:marker,Tags:[chess.entity,chess.create,chess.create.+,chess.create.+-],Rotation:[180,0]},{
 id:marker,Tags:[chess.entity,chess.create,chess.create.+,chess.create.-+],Rotation:[90,0]}]}"},{id:command_block_minecart,Silent:1,Command:"
 execute at @e[tag=chess.create] run fill ^-.5 ^7 ^1.5 ^6.5 ^-2 ^6.5 air"},{id:command_block_minecart,Silent:1,Command:"
-setblock ~ ~2 ~ command_block{auto:1,Command:'execute store result block ~-5 ~-4 ~-5 auto int 1 run fill ~ ~-2 ~ ~ ~ ~ air'}"},{id:command_block_minecart,Silent:1,Command:"
+setblock ~ ~2 ~ command_block{auto:1,Command:'fill ~ ~-2 ~ ~ ~ ~ air'}"},{id:command_block_minecart,Silent:1,Command:"
 setblock ~ ~1 ~ redstone_block"},{id:command_block_minecart,Silent:1,Command:"
 execute at @e[tag=chess.create] run fill ^3.5 ^-1 ^4.5 ^-3.5 ^-1 ^4.5 glowstone"},{id:command_block_minecart,Silent:1,Command:"
 execute at @e[tag=chess.create] run fill ^4.5 ^-1 ^2.5 ^4.5 ^-1 ^-2.5 oak_planks"},{id:command_block_minecart,Silent:1,Command:"
@@ -190,7 +190,7 @@ scoreboard players set 100 chess.id 100'},{id:command_block_minecart,Silent:1,Co
 scoreboard players add boards chess.id 1'},{id:command_block_minecart,Silent:1,Command:'
 execute store success score @e[tag=chess.item,distance=..8,nbt={Item:{components:{"minecraft:custom_data":{Chess:[white]}}}}] chess.team run scoreboard players set @e[tag=chess.item,nbt={Item:{components:{"minecraft:custom_data":{Chess:[black]}}}},distance=..8] chess.team 2'},{id:command_block_minecart,Silent:1,Command:'
 
-setblock $(+chain_n) repeating_command_block[facing=$(chain_next)]{Command:"execute at @n[tag=chess.main] unless entity @e[tag=chess.board_end,distance=..7,nbt={Item:{components:{\\\"minecraft:custom_data\\\":{Chess:[pawn]}}}}] as @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}},limit=1] at @s store result entity @s Fire int 1 run tag @e[tag=chess.item,distance=...5,nbt={Item:{}},scores={chess.team=1}] add chess.calculate.selected"}'},{id:command_block_minecart,Silent:1,Command:'
+setblock $(+chain_n) repeating_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] unless entity @e[tag=chess.board_end,distance=..7,nbt={Item:{components:{\\\"minecraft:custom_data\\\":{Chess:[pawn]}}}}] as @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}},limit=1] at @s store result entity @s Fire int 1 run tag @e[tag=chess.item,distance=...5,nbt={Item:{}},scores={chess.team=1}] add chess.calculate.selected"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] run tag @e[tag=chess.calculate.selected,distance=..7] add chess.calculate.moveable"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] as @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}}] at @s unless entity @e[tag=chess.item,tag=chess.calculate.moveable,distance=...5] unless entity @e[tag=chess.item,distance=...5,scores={chess.team=1}] run data remove entity @s interaction"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] at @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}},limit=1] as @e[tag=chess.interaction.board,distance=.5..10] run data remove entity @s interaction"}'},{id:command_block_minecart,Silent:1,Command:'
@@ -304,7 +304,7 @@ setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{$(=chain_n,check_
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.calculate] as @e[tag=chess.calculate.move,tag=!chess.calculate.legal,distance=..7] unless entity @s[tag=chess.calculate.piece,scores={chess.team=1}] run kill @s"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute as @n[tag=chess.calculate] at @s if data entity @s data.start run playsound ui.button.click master @a[distance=..15]"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute as @n[tag=chess.calculate] store result entity @s data.start int 1 run tag @s remove chess.calculate"}'},{id:command_block_minecart,Silent:1,Command:'
-setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] run data merge block ~-5 ~-2 ~-5 {auto:0}"}'},{id:command_block_minecart,Silent:1,Command:'
+setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"data merge block $(chain_n:->:chain1) {auto:0}"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
@@ -313,7 +313,7 @@ setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_blo
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
-setblock $(+chain_n) repeating_command_block[facing=up]{auto:1,Command:"execute at @e[tag=chess.main,distance=..8,nbt=!{data:{end:1}}] if entity @e[tag=chess.interaction.all,distance=..7,nbt={interaction:{}}] run data merge block ~-5 ~-2 ~-5 {auto:1}"}'},{id:command_block_minecart,Silent:1,Command:"
+setblock $(+chain_n) repeating_command_block[facing=up]{auto:1,Command:"execute at @e[tag=chess.main,distance=..8,nbt=!{data:{end:1}}] if entity @e[tag=chess.interaction.all,distance=..7,nbt={interaction:{}}] run data merge block $(chain1) {auto:1}"}'},{id:command_block_minecart,Silent:1,Command:"
 
 
 
@@ -324,13 +324,14 @@ execute at @n[tag=chess.main] run setblock ~4 ~-1 ~4 activator_rail"},{id:comman
 execute at @n[tag=chess.main] run summon interaction ~4.5 ~-1.5 ~4.5 {width:1.001,Tags:[chess.entity]}"},{id:command_block_minecart,Silent:1,Command:"
 execute at @n[tag=chess.main] run summon block_display ~4.5 ~-1.5 ~4.3775 {block_state:{Name:oak_wood},Tags:[chess.entity,CD],transformation:[1.005,.0,.0,-.5,.0,1.0,.0,.0,.0,.0,1.005,-.3775,.0,.0,.0,1.0],Passengers:[{id:block_display,block_state:{Name:oak_wood},Tags:[chess.entity,CD],transformation:[1.006,.0,.0,-.5001,.0,1.0,.0,1.0,.0,.0,1.006,-.3785,.0,.0,.0,1.0]},{id:block_display,block_state:{Name:glowstone},Tags:[chess.entity,CD],transformation:[1.005,.0,.0,-.5,.0,1.001,.0,.0,.0,.0,1.0,-1.3775,.0,.0,.0,1.0]}]}"},{id:command_block_minecart,Silent:1,Command:"
 execute at @n[tag=chess.main] on passengers run tp @s ~4.5 ~-1.5 ~4.3775",Passengers:[{id:command_block_minecart,Silent:1,Command:'
+$(chess.menu:=:4,-1,4)
 
 execute positioned ~-8.5 ~.5 ~-4.3775 as @e[tag=chess.item,dx=7,dz=-1] unless entity @s[distance=1.5..7] at @s run data modify block ~ ~4 ~ front_text.messages[1] set from block ~ ~4 ~ front_text.messages[2]',Tags:[CExt]},{id:command_block_minecart,Silent:1,Command:'
 execute positioned ~-8.5 ~.5 ~-4.3775 as @e[tag=chess.item,dx=7,dz=-1] unless entity @s[distance=1.5..7] at @s run data modify block ~ ~4 ~ front_text.messages[2] set value {text:Settings,click_event:{action:run_command,command:"
 execute at @n[tag=chess.main,distance=..15] run setblock ~4 ~ ~4 redstone_block"}}',Tags:[CExt]},{id:command_block_minecart,Silent:1,Command:'
 execute positioned ~-8.5 ~.5 ~-4.3775 as @e[tag=chess.item,dx=7,dz=-1] unless entity @s[distance=1.5..7] at @s run data modify block ~ ~4 ~ back_text.messages[0] set from block ~ ~4 ~ front_text.messages[2]',Tags:[CExt]},{id:command_block_minecart,Silent:1,Command:'
 
-execute as @n[tag=chess.main,tag=!chess.main.menu] unless entity @e[tag=CExt,distance=...5] run tag @s add chess.menu.summon'},{id:command_block_minecart,Silent:1,Command:' $(menu:=:4,-1,4)
+execute as @n[tag=chess.main,tag=!chess.main.menu] unless entity @e[tag=CExt,distance=...5] run tag @s add chess.menu.summon'},{id:command_block_minecart,Silent:1,Command:'
 execute at @n[tag=chess.menu.summon] run playsound ui.toast.in master @a[distance=..10] ~ ~ ~ 5 1'},{id:command_block_minecart,Silent:1,Command:'
 execute at @n[tag=chess.menu.summon] run summon block_display ~ ~.5 ~-5.5 {Tags:[chess.entity,chess.menu.entity,chess.menu.side,chess.menu.exit_side],block_state:{Name:white_stained_glass},transformation:[2.0,.0,.0,-1.0,.0,2.0,.0,.0,.0,.0,1.0,-.5,.0,.0,.0,1.0],Passengers:[{id:block_display,Tags:[chess.entity,chess.menu.entity],block_state:{Name:white_concrete},transformation:[1.5,.0,.0,-.75,.0,1.5,.0,.25,.0,.0,.75,-.375,.0,.0,.0,1.0]},{id:text_display,billboard:fixed,Tags:[chess.entity,chess.menu.entity],text:{text:"Exit Menu"},transformation:[1.0,.0,.0,.0,.0,1.0,.0,2.0,.0,.0,1.0,.5,.0,.0,.0,1.0],background:0}]}'},{id:command_block_minecart,Silent:1,Command:'
 execute at @n[tag=chess.menu.summon] run summon block_display ~ ~.5 ~5.5 {Tags:[chess.entity,chess.menu.entity,chess.menu.side,chess.menu.board_side],block_state:{Name:red_stained_glass},transformation:[2.0,.0,.0,-1.0,.0,2.0,.0,.0,.0,.0,1.0,-.5,.0,.0,.0,1.0],Passengers:[{id:block_display,Tags:[chess.entity,chess.menu.entity,CMBR],block_state:{Name:red_concrete_powder},transformation:[.625,.0,.0,.125,.0,1.5,.0,.25,.0,.0,.75,-.375,.0,.0,.0,1.0]},{id:block_display,Tags:[chess.entity,chess.menu.entity,CMBR],block_state:{Name:redstone_block},transformation:[.625,.0,.0,-.75,.0,1.5,.0,.25,.0,.0,.75,-.375,.0,.0,.0,1.0]},{id:text_display,billboard:fixed,Tags:[chess.entity,chess.menu.entity],text:{text:"Board:\\nReset | Delete"},transformation:[-1.0,.0,.0,.0,.0,1.0,.0,2.0,.0,.0,1.0,-.5,.0,.0,.0,1.0],background:0}]}'},{id:command_block_minecart,Silent:1,Command:'
@@ -432,19 +433,19 @@ execute align xz run kill @e[type=command_block_minecart,dy=0]'}]}"},{id:command
 
 execute as @e[tag=chess.main.menu,distance=..9] at @s at @e[tag=CMTheme,distance=..6,nbt={interaction:{}}] run tag @s add CTheme'},{id:command_block_minecart,Silent:1,Command:'
 
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:light_move) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:dark_move) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:light_attack) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:dark_attack) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:light_selected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:dark_selected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:light_tile) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:dark_tile) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:check_unselected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:stalemate) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:checkmate) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:check_selected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
-execute as @n[tag=CTheme] run summon falling_block $(menu:->:check_assisted) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:light_move) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:dark_move) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:light_attack) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:dark_attack) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:light_selected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:dark_selected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:light_tile) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:dark_tile) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:check_unselected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:stalemate) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:checkmate) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:check_selected) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run summon falling_block $(chess.menu:->:check_assisted) {BlockState:{Name:barrier},DropItem:0,NoGravity:1,Time:600,Tags:[CSCmd]}'},{id:command_block_minecart,Silent:1,Command:'
 
 execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:{}},tag=chess.theme.0] at @e[tag=CSCmd,distance=..10] run data modify block ~ ~ ~ Command set from block ~ ~ ~ components.minecraft:custom_data.themes[0]'},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:{}},tag=chess.theme.1] at @e[tag=CSCmd,distance=..10] run data modify block ~ ~ ~ Command set from block ~ ~ ~ components.minecraft:custom_data.themes[1]'},{id:command_block_minecart,Silent:1,Command:'
@@ -456,7 +457,7 @@ execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:
 execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:{}},tag=chess.theme.7] at @e[tag=CSCmd,distance=..10] run data modify block ~ ~ ~ Command set from block ~ ~ ~ components.minecraft:custom_data.themes[7]'},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:{}},tag=chess.theme.8] at @e[tag=CSCmd,distance=..10] run data modify block ~ ~ ~ Command set from block ~ ~ ~ components.minecraft:custom_data.themes[8]'},{id:command_block_minecart,Silent:1,Command:'
 
-execute as @n[tag=CTheme] run data merge block ~-9 ~-1 ~-9 {auto:1}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run data merge block $(chess.menu:->:chain1) {auto:1}'},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=CTheme] run tag @s remove CTheme'},{id:command_block_minecart,Silent:1,Command:'
 
 
