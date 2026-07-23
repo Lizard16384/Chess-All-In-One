@@ -1,3 +1,5 @@
+from payload.parser import parse
+
 themes = [
     {
         "name":"nether",
@@ -189,39 +191,13 @@ commands = {
     "black_pawn":"data merge the block display $(black_pawn)"
 }
 
-def split_by_actions(line):
-    """
-    Takes a line and splits it up into a list separated with actions
-    Thus, every other item in the new list is an action
-
-    It is rudimentary and very much breaks if you attempt to nest them
-    """
-    split_line = []
-    action_index = 0
-    action_end = 0
-
-    while action_index != -1:
-        action_index = line.find("$(",action_end) # Find next action, or quit
-        if action_index == -1:
-            continue
-
-        # Add the text in between actions before finding the end of the next action
-        # Thus it's going from end of last action to start of next action
-        split_line.append(line[action_end:action_index])
-
-        action_end = line.find(")",action_end) + 1
-
-        split_line.append("$" + line[action_index + 2 : action_end - 1])
-    split_line.append(line[action_end:])
-    return split_line
-
 def get_theme_commands():
     data = {}
     for block_type, command in commands.items():
         data[block_type] = []
         for theme in themes:
             parsed_command = ""
-            for substring in split_by_actions(command):
+            for substring in parse.split_by_actions(command):
                 if len(substring) > 0 and substring[0] == "$":
                     parsed_command = parsed_command + theme[substring[1:]]
                 else:
