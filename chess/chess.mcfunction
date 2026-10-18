@@ -190,7 +190,9 @@ scoreboard players set 100 chess.id 100'},{id:command_block_minecart,Silent:1,Co
 scoreboard players add boards chess.id 1'},{id:command_block_minecart,Silent:1,Command:'
 execute store success score @e[tag=chess.item,distance=..8,nbt={Item:{components:{"minecraft:custom_data":{Chess:[white]}}}}] chess.team run scoreboard players set @e[tag=chess.item,nbt={Item:{components:{"minecraft:custom_data":{Chess:[black]}}}},distance=..8] chess.team 2'},{id:command_block_minecart,Silent:1,Command:'
 
-setblock $(+chain_n) repeating_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] unless entity @e[tag=chess.board_end,distance=..7,nbt={Item:{components:{\\\"minecraft:custom_data\\\":{Chess:[pawn]}}}}] as @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}},limit=1] at @s store result entity @s Fire int 1 run tag @e[tag=chess.item,distance=...5,nbt={Item:{}},scores={chess.team=1}] add chess.calculate.selected"}'},{id:command_block_minecart,Silent:1,Command:'
+setblock $(+chain_n) repeating_command_block[facing=$(chain_next)]{auto:1,Command:"execute as @n[tag=chess.main] unless data entity @s data.end at @s if entity @e[tag=chess.interaction.all,distance=..7,nbt={interaction:{}}] run setblock $(chain_n+1) chain_command_block[facing=$(chain_n+1:~:chain_n+2)]{auto:1,Command:\\\"setblock ~ ~ ~ oak_planks\\\"}"}'},{id:command_block_minecart,Silent:1,Command:'
+setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"setblock ~ ~ ~ oak_planks"}'},{id:command_block_minecart,Silent:1,Command:'
+setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] unless entity @e[tag=chess.board_end,distance=..7,nbt={Item:{components:{\\\"minecraft:custom_data\\\":{Chess:[pawn]}}}}] as @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}},limit=1] at @s store result entity @s Fire int 1 run tag @e[tag=chess.item,distance=...5,nbt={Item:{}},scores={chess.team=1}] add chess.calculate.selected"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] run tag @e[tag=chess.calculate.selected,distance=..7] add chess.calculate.moveable"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] as @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}}] at @s unless entity @e[tag=chess.item,tag=chess.calculate.moveable,distance=...5] unless entity @e[tag=chess.item,distance=...5,scores={chess.team=1}] run data remove entity @s interaction"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute at @n[tag=chess.main] at @e[tag=chess.interaction.board,distance=..7,nbt={interaction:{}},limit=1] as @e[tag=chess.interaction.board,distance=.5..10] run data remove entity @s interaction"}'},{id:command_block_minecart,Silent:1,Command:'
@@ -305,15 +307,13 @@ setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"e
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute as @n[tag=chess.calculate] at @s if data entity @s data.start run playsound ui.button.click master @a[distance=..15]"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute as @n[tag=chess.calculate,nbt={data:{end:1}}] at @s run playsound ui.toast.challenge_complete master @a[distance=..20]"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"execute as @n[tag=chess.calculate] store result entity @s data.start int 1 run tag @s remove chess.calculate"}'},{id:command_block_minecart,Silent:1,Command:'
-setblock $(+chain_n) chain_command_block[facing=$(chain_next)]{auto:1,Command:"data merge block $(chain_n:->:chain1) {auto:0}"}'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
 setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
-setblock $(+chain_n) chain_command_block[facing=$(chain_next)]'},{id:command_block_minecart,Silent:1,Command:'
-setblock $(+chain_n) repeating_command_block[facing=up]{auto:1,Command:"execute at @e[tag=chess.main,distance=..8,nbt=!{data:{end:1}}] if entity @e[tag=chess.interaction.all,distance=..7,nbt={interaction:{}}] run data merge block $(chain1) {auto:1}"}'},{id:command_block_minecart,Silent:1,Command:"
+setblock $(+chain_n) chain_command_block[facing=up]'},{id:command_block_minecart,Silent:1,Command:"
 
 
 
@@ -411,7 +411,8 @@ summon interaction ~-2 ~-.5625 ~-5 {height:.0626,response:1,Tags:[chess.entity,c
 
 execute at @e[tag=chess.item,distance=..6] run particle dust{color:[1,1,1],scale:2} ~ ~ ~ .3 0 .3 0 50 force'},{id:command_block_minecart,Silent:1,Command:'
 execute at @n[tag=chess.main] run playsound ui.cartography_table.take_result master @a[distance=..12]'},{id:command_block_minecart,Silent:1,Command:'
-execute store result block ~-5 ~-2 ~-5 auto int 1 align xz run kill @e[type=command_block_minecart,dy=0]'}]}"},{id:command_block_minecart,Silent:1,Command:"
+setblock $(chain2) chain_command_block[facing=$(chain2:~:chain3)]{auto:1,Command:\"setblock ~ ~ ~ oak_planks\"}'},{id:command_block_minecart,Silent:1,Command:'
+execute align xz run kill @e[type=command_block_minecart,dy=0]'}]}"},{id:command_block_minecart,Silent:1,Command:"
 execute at @e[tag=chess.main.menu,distance=..9] as @e[tag=chess.menu.interaction.board_reset,distance=..6,nbt={interaction:{}}] run setblock ~.5 ~-1 ~.5 redstone_block"},{id:command_block_minecart,Silent:1,Command:"
 
 execute at @e[tag=chess.main.menu,distance=..9] as @e[tag=chess.menu.interaction.board,tag=!chess.menu.interaction.board_reset,distance=..6,nbt={interaction:{}}] if block ~ ~ ~ air run summon falling_block ~.5 ~-.2 ~.5 {BlockState:{Name:redstone_block},Passengers:[{id:falling_block,BlockState:{Name:activator_rail}},{id:command_block_minecart,Silent:1,Command:'
@@ -456,7 +457,7 @@ execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:
 execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:{}},tag=chess.theme.7] at @e[tag=CSCmd,distance=..10] run data modify block ~ ~ ~ Command set from block ~ ~ ~ components.minecraft:custom_data.themes[7]'},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=CTheme] at @s as @n[tag=CMTheme,distance=..6,nbt={interaction:{}},tag=chess.theme.8] at @e[tag=CSCmd,distance=..10] run data modify block ~ ~ ~ Command set from block ~ ~ ~ components.minecraft:custom_data.themes[8]'},{id:command_block_minecart,Silent:1,Command:'
 
-execute as @n[tag=CTheme] run data merge block $(chess.menu:->:chain1) {auto:1}'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=CTheme] run setblock $(chess.menu:->:chain2) chain_command_block[facing=$(chain2:~:chain3)]{auto:1,Command:"setblock ~ ~ ~ oak_planks"}'},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=CTheme] run tag @s remove CTheme'},{id:command_block_minecart,Silent:1,Command:'
 
 
