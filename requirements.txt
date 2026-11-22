@@ -1,2 +1,1 @@
--r Payload/requirements.txt
--e ./Payload
+command-payload==1.1.1
