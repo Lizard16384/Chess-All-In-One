@@ -30,7 +30,7 @@ tellraw @a[distance=..30] {text:'',extra:[
 {text:' by ',color:'#FF55FF'},
 {text:'L',color:'#00FFFF',shadow_color:[0,0.02,0.69,1]},{text:'i',color:'#00DBFF',shadow_color:[0,0.03,0.63,1]},{text:'z',color:'#00B6FF',shadow_color:[0,0.04,0.56,1]},{text:'a',color:'#0092FF',shadow_color:[0,0.05,0.5,1]},{text:'r',color:'#006DFF',shadow_color:[0,0.06,0.44,1]},{text:'d',color:'#0049FF',shadow_color:[0,0.07,0.38,1]},{text:'1',color:'#0024FF',shadow_color:[0,0.08,0.32,1]},{text:'6',color:'#0000FF',shadow_color:[0,0.09,0.25,1]}
 ]}"},{id:command_block_minecart,Silent:1,Command:"
-execute align xyz unless entity @e[tag=chess.main,tag=!chess.confirm.entity,distance=..15] run summon item ~ ~.5 ~ {Passengers:[{id:marker,Tags:[chess.main,chess.entity]},{
+execute align xyz unless entity @e[tag=chess.main,tag=!chess.confirm.entity,distance=..15] run summon item ~ ~.5 ~ {Passengers:[{
 id:marker,Tags:[chess.entity,chess.create,chess.create.-,chess.create.-+]},{
 id:marker,Tags:[chess.entity,chess.create,chess.create.-,chess.create.+-],Rotation:[-90,0]},{
 id:marker,Tags:[chess.entity,chess.create,chess.create.+,chess.create.+-],Rotation:[180,0]},{
@@ -136,6 +136,14 @@ clone ~-4 ~-1 ~-4 ~-3 ~-1 ~-3 ~-2 ~-1 ~-4'},{id:command_block_minecart,Silent:1,
 clone ~-4 ~-1 ~-4 ~-1 ~-1 ~-3 ~ ~-1 ~-4'},{id:command_block_minecart,Silent:1,Command:'
 clone ~-4 ~-1 ~-4 ~3 ~-1 ~-3 ~-4 ~-1 ~-2'},{id:command_block_minecart,Silent:1,Command:'
 clone ~-4 ~-1 ~-4 ~3 ~-1 ~-1 ~-4 ~-1 ~'},{id:command_block_minecart,Silent:1,Command:'
+
+# Generate the main chess entity with a known random uuid alongside the string format for that uuid in its data
+execute on passengers run tag @s add chess.randomuuid.enchant',Tags:[chess.randomuuid.command],Passengers:[{id:armor_stand,Invisible:1,Silent:1,equipment:{mainhand:{id:barrier,components:{item_model:air}}}}]},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=chess.randomuuid.enchant] run item modify entity @s weapon.mainhand {"type":"minecraft:set_name","entity":"this","name":["execute align xyz run summon marker ~ ~.5 ~ {Tags:[chess.main,chess.entity],data:{UUID:",{nbt:"LastOutput.extra[0].with[].insertion",entity:"@n[tag=chess.randomuuid.command]",plain:1},"},","UUID:uuid(",{nbt:"LastOutput.extra[0].with[].insertion",entity:"@n[tag=chess.randomuuid.command]",plain:1},")}"]}'},{id:command_block_minecart,Silent:1,Command:'
+enchant @n[tag=chess.randomuuid.enchant] lure',Tags:[chess.randomuuid.flattened]},{id:command_block_minecart,Silent:1,Command:'
+data modify entity @n[tag=chess.randomuuid.result] Command set from entity @n[tag=chess.randomuuid.flattened] LastOutput.extra[0].extra[0].with[0]'},{id:command_block_minecart,Silent:1,Command:'
+kill @n[tag=chess.randomuuid.enchant]',},{id:command_block_minecart,Silent:1,Command:'
+',Tags:[chess.randomuuid.result]},{id:command_block_minecart,Silent:1,Command:'
 
 summon interaction ~3 ~-.0625 ~-4 {height:.0626,response:1,Tags:[chess.interaction.board,chess.interaction.all,chess.entity],Passengers:[{id:item_frame,Silent:1,Invisible:1,Facing:1,Fixed:1,ItemRotation:4,Tags:[chess.item,chess.board_end,chess.entity],Item:{id:netherite_leggings,components:{custom_data:{Chess:[black,rook,line]},custom_name:{text:Rook,color:black,bold:1}}}}]}'},{id:command_block_minecart,Silent:1,Command:'
 summon interaction ~2 ~-.0625 ~-4 {height:.0626,response:1,Tags:[chess.interaction.board,chess.interaction.all,chess.entity],Passengers:[{id:item_frame,Silent:1,Invisible:1,Facing:1,Fixed:1,ItemRotation:4,Tags:[chess.item,chess.board_end,chess.entity],Item:{id:netherite_boots,components:{custom_data:{Chess:[black,knight]},custom_name:{text:Knight,color:black,bold:1}}}}]}'},{id:command_block_minecart,Silent:1,Command:'
