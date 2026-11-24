@@ -138,7 +138,8 @@ clone ~-4 ~-1 ~-4 ~3 ~-1 ~-3 ~-4 ~-1 ~-2'},{id:command_block_minecart,Silent:1,C
 clone ~-4 ~-1 ~-4 ~3 ~-1 ~-1 ~-4 ~-1 ~'},{id:command_block_minecart,Silent:1,Command:'
 
 # Generate the main chess entity with a known random uuid alongside the string format for that uuid in its data
-execute on passengers run tag @s add chess.randomuuid.enchant',Tags:[chess.randomuuid.command],Passengers:[{id:armor_stand,Invisible:1,Silent:1,equipment:{mainhand:{id:barrier,components:{item_model:air}}}}]},{id:command_block_minecart,Silent:1,Command:'
+summon armor_stand ~ ~ ~ {Tags:[chess.randomuuid.enchant],Silent:1,equipment:{mainhand:{id:waxed_weathered_copper_golem_statue}}}'},{id:command_block_minecart,Silent:1,Command:'
+rotate @n[tag=chess.randomuuid.enchant] ~ ~',Tags:[chess.randomuuid.command]},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=chess.randomuuid.enchant] run item modify entity @s weapon.mainhand {"type":"minecraft:set_name","entity":"this","name":["execute align xyz run summon marker ~ ~.5 ~ {Tags:[chess.main,chess.entity],data:{UUID:",{nbt:"LastOutput.extra[0].with[].insertion",entity:"@n[tag=chess.randomuuid.command]",plain:1},"},","UUID:uuid(",{nbt:"LastOutput.extra[0].with[].insertion",entity:"@n[tag=chess.randomuuid.command]",plain:1},")}"]}'},{id:command_block_minecart,Silent:1,Command:'
 enchant @n[tag=chess.randomuuid.enchant] lure',Tags:[chess.randomuuid.flattened]},{id:command_block_minecart,Silent:1,Command:'
 data modify entity @n[tag=chess.randomuuid.result] Command set from entity @n[tag=chess.randomuuid.flattened] LastOutput.extra[0].extra[0].with[0]'},{id:command_block_minecart,Silent:1,Command:'
