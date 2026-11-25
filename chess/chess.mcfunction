@@ -341,7 +341,7 @@ execute at @n[tag=chess.main,distance=..15] run particle dust_color_transition{f
 execute at @n[tag=chess.main] run setblock ~4 ~ ~4 redstone_block"},{id:command_block_minecart,Silent:1,Command:"
 execute at @n[tag=chess.main] run setblock ~4 ~-1 ~4 activator_rail"},{id:command_block_minecart,Silent:1,Command:"
 execute at @n[tag=chess.main] run summon interaction ~4.5 ~-1.5 ~4.5 {width:1.001,Tags:[chess.entity]}"},{id:command_block_minecart,Silent:1,Command:"
-execute at @n[tag=chess.main] run summon block_display ~4.5 ~-1.5 ~4.3775 {block_state:{id:oak_wood},Tags:[chess.entity,CD],transformation:[1.005,.0,.0,-.5,.0,1.0,.0,.0,.0,.0,1.005,-.3775,.0,.0,.0,1.0],Passengers:[{id:block_display,block_state:{id:oak_wood},Tags:[chess.entity,CD],transformation:[1.006,.0,.0,-.5001,.0,1.0,.0,1.0,.0,.0,1.006,-.3785,.0,.0,.0,1.0]},{id:block_display,block_state:{id:glowstone},Tags:[chess.entity,CD],transformation:[1.005,.0,.0,-.5,.0,1.001,.0,.0,.0,.0,1.0,-1.3775,.0,.0,.0,1.0]}]}"},{id:command_block_minecart,Silent:1,Command:"
+execute at @n[tag=chess.main] run summon block_display ~4.5 ~-1.5 ~4.3775 {block_state:{id:oak_wood},Tags:[chess.entity,chess.menu.block_display.hide],transformation:[1.005,.0,.0,-.5,.0,1.0,.0,.0,.0,.0,1.005,-.3775,.0,.0,.0,1.0],Passengers:[{id:block_display,block_state:{id:oak_wood},Tags:[chess.entity,chess.menu.block_display.hide],transformation:[1.006,.0,.0,-.5001,.0,1.0,.0,1.0,.0,.0,1.006,-.3785,.0,.0,.0,1.0]},{id:block_display,block_state:{id:glowstone},Tags:[chess.entity,chess.menu.block_display.hide],transformation:[1.005,.0,.0,-.5,.0,1.001,.0,.0,.0,.0,1.0,-1.3775,.0,.0,.0,1.0]}]}"},{id:command_block_minecart,Silent:1,Command:"
 execute at @n[tag=chess.main] on passengers run tp @s ~4.5 ~-1.5 ~4.3775",Passengers:[{id:block_display,Tags:[chess.entity],Passengers:[{id:command_block_minecart,Silent:1,Command:'
 
 execute positioned ~-8.5 ~.5 ~-4.3775 as @e[tag=chess.item,dx=7,dz=-1] unless entity @s[distance=1.5..7] at @s run data modify block ~ ~4 ~ front_text.messages[1] set from block ~ ~4 ~ front_text.messages[2]',Tags:[CExt]},{id:command_block_minecart,Silent:1,Command:'
@@ -379,7 +379,7 @@ tag @n[tag=chess.menu.summon,distance=..9] remove chess.menu.summon'},{id:comman
 
 execute at @n[tag=chess.main.menu,distance=..9] as @e[tag=chess.menu.interaction.board_reset,distance=..6,nbt={interaction:{}}] unless entity @e[type=falling_block,distance=..1] run summon falling_block ~.5 ~-.2 ~.5 {BlockState:{id:activator_rail},Passengers:[{id:command_block_minecart,Silent:1,Command:'
 setblock ~ ~2 ~ command_block{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}'},{id:command_block_minecart,Silent:1,Command:'
-execute run kill @e[type=!command_block_minecart,tag=chess.entity,tag=!chess.main,tag=!CD,tag=!chess.menu.entity,distance=..8]'},{id:command_block_minecart,Silent:1,Command:'
+execute run kill @e[type=!command_block_minecart,tag=chess.entity,tag=!chess.main,tag=!chess.menu.block_display.hide,tag=!chess.menu.entity,distance=..8]'},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=chess.main,distance=..3] store result score @s chess.team run tag @s add chess.calculate'},{id:command_block_minecart,Silent:1,Command:'
 data remove entity @n[tag=chess.main] data.start'},{id:command_block_minecart,Silent:1,Command:'
 data remove entity @n[tag=chess.main] data.end'},{id:command_block_minecart,Silent:1,Command:'
