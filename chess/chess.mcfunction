@@ -514,7 +514,7 @@ execute as @e[tag=CDisplay] run tag @s remove CDisplay'},{id:command_block_minec
 
 execute at @n[tag=chess.main.menu,distance=..9] as @n[tag=chess.menu.interaction.exit,distance=..6,nbt={interaction:{}}] run playsound ui.toast.out master @a[distance=..10] ~ ~ ~ 5 1'},{id:command_block_minecart,Silent:1,Command:'
 execute at @n[tag=chess.main.menu,distance=..9] as @n[tag=chess.menu.interaction.exit,distance=..6,nbt={interaction:{}}] run setblock ~4 ~1 ~4 command_block{auto:1,Command:"clone ~-9 ~2 ~ ~-9 ~-1 ~ ~ ~-1 ~"}'},{id:command_block_minecart,Silent:1,Command:'
-execute at @n[tag=chess.main.menu,distance=..9] as @n[tag=chess.menu.interaction.exit,distance=..6,nbt={interaction:{}}] at @e[tag=chess.menu.side,distance=..6] facing entity @s eyes run particle electric_spark ^ ^1 ^-.5 1 1 1 0 100 force'},{id:command_block_minecart,Silent:1,Command:'
+execute as @n[tag=chess.main.menu,distance=..9] at @s if entity @n[tag=chess.menu.interaction.exit,distance=..6,nbt={interaction:{}}] at @e[tag=chess.menu.side,distance=..6] facing entity @s eyes run particle electric_spark ^ ^1 ^-.5 1 1 1 0 100 force'},{id:command_block_minecart,Silent:1,Command:'
 execute at @n[tag=chess.main.menu,distance=..9] as @n[tag=chess.menu.interaction.exit,distance=..6,nbt={interaction:{}}] run kill @e[tag=chess.menu.entity,distance=..6]'},{id:command_block_minecart,Silent:1,Command:'
 execute as @n[tag=chess.main,distance=..9] at @s unless entity @n[tag=chess.menu.entity,distance=..6] run tag @s remove chess.main.menu'},{id:command_block_minecart,Silent:1,Command:'
 execute at @n[tag=chess.main.menu,distance=..9] as @e[tag=chess.menu.interaction,distance=..6] run data remove entity @s interaction'},{id:command_block_minecart,Silent:1,Command:'
