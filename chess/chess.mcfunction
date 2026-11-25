@@ -24,7 +24,7 @@ execute as @e[tag=chess.confirm.click] run data merge block ~ ~-2 ~ {powered:0,a
 execute as @e[tag=chess.confirm.click] run setblock ~ ~1 ~ command_block{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}",Tags:[chess.confirm.query,chess.confirm.minecart]},{id:command_block_minecart,Silent:1,Command:"
 execute as @e[tag=chess.confirm.click] align xz run kill @e[type=command_block_minecart,dy=0]",Tags:[chess.confirm.query,chess.confirm.minecart]},{id:command_block_minecart,Silent:1,Command:"
 playsound block.end_portal.spawn master @a[distance=..50] ~ ~ ~"},{id:command_block_minecart,Silent:1,Command:"
-tellraw @a[distance=..30] {text:'',extra:[
+tellraw @a[distance=..30] {text:'',click_event:{action:'open_url',url:'https://github.com/Lizard16384/Chess-All-In-One'},hover_event:{action:'show_text',value:{text:'Check out the GitHub!'}},extra:[
 {text:'C',color:'#B86B3A'},{text:'r',color:'#BB7547'},{text:'e',color:'#BF7E55'},{text:'a',color:'#C28862'},{text:'t',color:'#C5916F'},{text:'e',color:'#C99B7D'},{text:'d ',color:'#CCA48A'},
 {text:'A',color:'#FFFFFF'},{text:'l',color:'#646464'},{text:'l ',color:'#FFFFFF'},{text:'I',color:'#646464'},{text:'n ',color:'#FFFFFF'},{text:'C',color:'#646464'},{text:'h',color:'#FFFFFF'},{text:'e',color:'#646464'},{text:'s',color:'#FFFFFF'},{text:'s',color:'#646464'},
 {text:' by ',color:'#FF55FF'},
